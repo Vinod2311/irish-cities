@@ -1,0 +1,25 @@
+{
+  "name": "irish-cities",
+  "version": "0.1.0",
+  "description": "Irish cities: A Hapi application for learning about Irish cities.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "lint": "./node_modules/.bin/eslint . --ext .js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.44.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "prettier": "^3.0.0"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^21.3.2",
+    "@hapi/vision": "^7.0.2",
+    "handlebars": "^4.7.7"
+  }
+}
