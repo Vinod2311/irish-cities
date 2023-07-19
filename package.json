@@ -6,20 +6,25 @@
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
-    "lint": "./node_modules/.bin/eslint . --ext .js"
+    "lint": "./node_modules/.bin/eslint . --ext .js",
+    "test": "mocha --ui tdd test/**.js -exit"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^4.3.7",
     "eslint": "^8.44.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
+    "mocha": "^10.2.0",
     "prettier": "^3.0.0"
   },
   "dependencies": {
     "@hapi/hapi": "^21.3.2",
     "@hapi/vision": "^7.0.2",
-    "handlebars": "^4.7.7"
+    "handlebars": "^4.7.7",
+    "lowdb": "^5.0.5",
+    "uuid": "^9.0.0"
   }
 }

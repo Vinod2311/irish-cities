@@ -1,0 +1,19 @@
+{
+  "universities": [
+    {
+      "name": "UCD",
+      "_id": "9be40247-3636-4062-bbde-43f4ea2389e5",
+      "countyId": "e5bc57bf-d830-406a-8176-4815622daab6"
+    },
+    {
+      "name": "Trinity College Dublin",
+      "_id": "4aa2efc7-fc7f-4ecc-aa5a-02946e88786c",
+      "countyId": "e5bc57bf-d830-406a-8176-4815622daab6"
+    },
+    {
+      "name": "SETU",
+      "_id": "fedc122b-d3be-4106-9250-3d575f903ad9",
+      "countyId": "aa50c88d-807b-4154-939d-86d5d6096315"
+    }
+  ]
+}

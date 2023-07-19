@@ -1,0 +1,32 @@
+<table class="table is-fullwidth">
+  <thead>
+    <tr>
+      <th>University Name</th>
+      <th>Info - 2</th>
+      <th>Info - 3</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each county.universities}}
+      <tr>
+        <td>
+          {{name}}
+        </td>
+        <td>
+          Info - 2
+        </td>
+        <td>
+          Info - 3
+        </td>
+        <td>
+            <a href="/county/{{../county._id}}/deleteUniversity/{{_id}}" class="button">
+            <span class="icon is-small">
+            <i class="fas fa-trash"></i>
+            </span>
+            </a>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
