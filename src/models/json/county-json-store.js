@@ -22,8 +22,12 @@ export const countyJsonStore = {
 
   async getCountyById(id) {
     await db.read();
-    const list = db.data.counties.find((county) => county._id === id);
-    list.universities = await universityJsonStore.getUniversitiesByCountyId(list._id);
+    let list = db.data.counties.find((county) => county._id === id);
+    if (list) {
+      list.universities = await universityJsonStore.getUniversitiesByCountyId(list._id);
+    } else {
+      list = null;
+    }
     return list;
   },
 
@@ -35,7 +39,7 @@ export const countyJsonStore = {
   async deleteCountyById(id) {
     await db.read();
     const index = db.data.counties.findIndex((county) => county._id === id);
-    db.data.counties.splice(index, 1);
+    if (index !== -1) db.data.counties.splice(index, 1);
     await db.write();
   },
 

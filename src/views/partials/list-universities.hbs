@@ -2,8 +2,9 @@
   <thead>
     <tr>
       <th>University Name</th>
-      <th>Info - 2</th>
-      <th>Info - 3</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Description</th>
       <th></th>
     </tr>
   </thead>
@@ -14,10 +15,13 @@
           {{name}}
         </td>
         <td>
-          Info - 2
+          {{lat}}
         </td>
         <td>
-          Info - 3
+          {{lng}}
+        </td>
+        <td>
+          {{description}}
         </td>
         <td>
             <a href="/county/{{../county._id}}/deleteUniversity/{{_id}}" class="button">

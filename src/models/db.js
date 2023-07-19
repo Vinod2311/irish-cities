@@ -4,6 +4,10 @@ import { universityMemStore } from "./mem/university-mem-store.js";
 import { userJsonStore } from "./json/user-json-store.js";
 import { countyJsonStore } from "./json/county-json-store.js";
 import { universityJsonStore } from "./json/university-json-store.js";
+import { userMongoStore } from "./mongo/user-mongo-store.js";
+import { countyMongoStore } from "./mongo/county-mongo-store.js";
+import { universityMongoStore } from "./mongo/university-mongo-store.js";
+import { connectMongo } from "./mongo/connect.js";
 
 export const db = {
   userStore: null,
@@ -18,12 +22,12 @@ export const db = {
           this.countyStore = countyJsonStore;
           this.universityStore = universityJsonStore;
           break;
-        /* case "mongo":
+         case "mongo":
           this.userStore = userMongoStore;
           this.countyStore = countyMongoStore;
           this.universityStore = universityMongoStore;
           connectMongo();
-          break; */
+          break; 
         default:
           this.userStore = userMemStore;
           this.countyStore = countyMemStore;

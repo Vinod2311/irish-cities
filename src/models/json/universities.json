@@ -1,19 +1,24 @@
 {
   "universities": [
     {
+      "name": "SETU",
+      "_id": "2a1f06e5-8073-4227-883c-6212d36c7a40",
+      "countyId": "b79f1e7b-6eb7-45f9-9a79-026f43f9f88d"
+    },
+    {
       "name": "UCD",
-      "_id": "9be40247-3636-4062-bbde-43f4ea2389e5",
-      "countyId": "e5bc57bf-d830-406a-8176-4815622daab6"
+      "_id": "d10fcbe6-e512-447e-b496-b70aee4de460",
+      "countyId": "b79f1e7b-6eb7-45f9-9a79-026f43f9f88d"
+    },
+    {
+      "name": "GU",
+      "_id": "b433f318-12a6-41ba-9bc3-74c7a370e4f6",
+      "countyId": "b79f1e7b-6eb7-45f9-9a79-026f43f9f88d"
     },
     {
       "name": "Trinity College Dublin",
-      "_id": "4aa2efc7-fc7f-4ecc-aa5a-02946e88786c",
-      "countyId": "e5bc57bf-d830-406a-8176-4815622daab6"
-    },
-    {
-      "name": "SETU",
-      "_id": "fedc122b-d3be-4106-9250-3d575f903ad9",
-      "countyId": "aa50c88d-807b-4154-939d-86d5d6096315"
+      "_id": "1264872e-0f2a-4a6f-bfa6-22bc1d1c16a3",
+      "countyId": "b79f1e7b-6eb7-45f9-9a79-026f43f9f88d"
     }
   ]
 }
