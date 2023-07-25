@@ -10,7 +10,7 @@ suite("County API tests", () => {
   let user = null;
 
   setup(async () => {
-    db.init("mongo");
+    // db.init("mongo");
     universityService.clearAuth();
     user = await universityService.createUser(maggie);
     await universityService.authenticate(maggieCredentials); 
@@ -19,7 +19,7 @@ suite("County API tests", () => {
     await universityService.deleteAllUsers();
     user = await universityService.createUser(maggie);
     await universityService.authenticate(maggieCredentials);
-     dublin.userId = user._id;
+     dublin.userId = user._id; 
       for (let i = 0; i < testCounties.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       counties[i] = await universityService.createCounty(testCounties[i]);

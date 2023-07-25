@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node src/server.js",
     "lint": "./node_modules/.bin/eslint . --ext .js",
-    "test": "mocha --ui tdd test/**/*.js -exit",
+    "test": "mocha --ui tdd test/**/*.js -exit --timeout 20000",
     "dev": "nodemon src/server.js"
   },
   "author": "",

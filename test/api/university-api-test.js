@@ -5,13 +5,13 @@ import { db } from "../../src/models/db.js";
 import { maggie, testUniversities, dublin, TCD, maggieCredentials } from "../fixtures.js";
 
 const universities = new Array(testUniversities.length);
-suite("university API tests", () => {
+suite("University API tests", () => {
 
   let dublinList = null;
   let user = null;
 
   setup(async () => {
-    db.init("mongo");
+    // db.init("mongo");
     universityService.clearAuth();
     user = await universityService.createUser(maggie);
     await universityService.authenticate(maggieCredentials);

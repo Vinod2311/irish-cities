@@ -10,7 +10,7 @@ suite("User API tests", () => {
   let user = null;
 
   setup(async () => {
-    db.init("mongo")
+    // db.init("mongo")
     universityService.clearAuth();
     user = await universityService.createUser(maggie);
     await universityService.authenticate(maggieCredentials);
