@@ -5,7 +5,9 @@ import { validationError } from "./logger.js";
 
 export const countyApi = {
   find: {
-    auth: false,
+    auth: {
+      strategy: "jwt"
+    },
     tags: ["api"],
     description: "Return all counties",
     notes: "Returns all counties", 
@@ -21,7 +23,9 @@ export const countyApi = {
   },
 
   findOne: {
-    auth: false, 
+    auth: {
+      strategy: "jwt"
+    }, 
     validate: { params: { id: idSpec}, failAction: validationError},
     tags: ["api"],
     description: "Return a specific county",
@@ -41,7 +45,9 @@ export const countyApi = {
   },
 
   deleteOne: {
-    auth: false, 
+    auth: {
+      strategy: "jwt"
+    },
     validate: { params: { id: idSpec}, failAction: validationError},
     tags: ["api"],
     description: "Delete a specific county",
@@ -61,7 +67,9 @@ export const countyApi = {
   },
 
   create: {
-    auth: false, 
+    auth: {
+      strategy: "jwt"
+    },
     tags: ["api"],
     description: "Create a county",
     notes: "Creates a county and returns the created county",
@@ -81,7 +89,9 @@ export const countyApi = {
   },
 
   deleteAll: {
-    auth: false, 
+    auth: {
+      strategy: "jwt"
+    }, 
     tags: ["api"],
     description: "Delete all counties",
     notes: "Deletes all counties", 

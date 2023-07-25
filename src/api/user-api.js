@@ -2,13 +2,36 @@ import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
 import { validationError } from "./logger.js";
 import { idSpec,userArraySpec, userSpec, userSpecPlus } from "../models/joi-schemas.js";
+import { createToken } from "./jwt-utils.js";
 
 export const userApi = {
+
+  authenticate: {
+    auth: false,
+    handler: async function (request, h) {
+      try {
+        const user = await db.userStore.getUserByEmail(request.payload.email);
+        if (!user) {
+          return Boom.unauthorized("User not found");
+        }
+        if (user.password !== request.payload.password) {
+          return Boom.unauthorized("Invalid password");
+        }
+        const token = createToken(user);
+        return h.response({ success: true, token: token }).code(201);
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+  },
+
   find: {
     tags: ["api"],
     description: "Get all users",
     notes: "Returns details of all users",
-    auth: false,
+    auth: {
+      strategy: "jwt"
+    },
     handler: async function (request, h) {
       try {
         const users = await db.userStore.getAllUsers();
@@ -24,7 +47,9 @@ export const userApi = {
     tags: ["api"],
     description: "Get a specific user",
     notes: "Returns details of one user",
-    auth: false,
+    auth: {
+      strategy: "jwt"
+    },
     handler: async function (request, h) {
       try {
         const user = await db.userStore.getUserById(request.params.id);
@@ -61,7 +86,9 @@ export const userApi = {
   },
 
   deleteAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt"
+    },
     tags: ["api"],
     description: "Deletes all users",
     notes: "Deletes all users",

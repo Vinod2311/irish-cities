@@ -11,14 +11,14 @@ suite("County API tests", () => {
 
   setup(async () => {
     db.init("mongo");
-    /* universityService.clearAuth();
+    universityService.clearAuth();
     user = await universityService.createUser(maggie);
-    await universityService.authenticate(maggie); */
+    await universityService.authenticate(maggie); 
     await universityService.deleteAllUniversities();
     await universityService.deleteAllCounties();
     await universityService.deleteAllUsers();
     user = await universityService.createUser(maggie);
-    // await universityService.authenticate(maggie);
+    await universityService.authenticate(maggie);
      dublin.userId = user._id;
       for (let i = 0; i < testCounties.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop

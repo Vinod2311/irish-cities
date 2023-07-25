@@ -5,7 +5,9 @@ import { validationError } from "./logger.js";
 
 export const universityApi = {
   find: {
-    auth: false, 
+    auth: {
+      strategy: "jwt"
+    }, 
     tags: ["api"],
     description: "Get all universities",
     notes: "Get all universities", 
@@ -21,7 +23,9 @@ export const universityApi = {
   },
 
   findOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt"
+    },
     tags: ["api"],
     description: "Get a specific university",
     notes: "Returns a university with given Id",
@@ -41,7 +45,9 @@ export const universityApi = {
   },
 
   create: {
-    auth: false,
+    auth: {
+      strategy: "jwt"
+    },
     validate: {payload: universitySpec, params: { id: idSpec }, failAction: validationError},
     tags: ["api"],
     description: "Create a university",
@@ -61,7 +67,9 @@ export const universityApi = {
   },
 
   deleteOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt"
+    },
     validate: { params: { id: idSpec }, failAction: validationError},
     tags: ["api"],
     description: "Delete a university",
@@ -81,7 +89,9 @@ export const universityApi = {
   },
 
   deleteAll: {
-    auth: false, 
+    auth: {
+      strategy: "jwt"
+    }, 
     tags: ["api"],
     description: "Deletes all universities",
     notes: "Deletes all universities",

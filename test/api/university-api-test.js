@@ -12,14 +12,14 @@ suite("university API tests", () => {
 
   setup(async () => {
     db.init("mongo");
-    // universityService.clearAuth();
-    // user = await universityService.createUser(maggie);
-    // await universityService.authenticate(maggie);
+    universityService.clearAuth();
+    user = await universityService.createUser(maggie);
+    await universityService.authenticate(maggie);
     await universityService.deleteAllCounties();
     await universityService.deleteAllUniversities();
     await universityService.deleteAllUsers();
     user = await universityService.createUser(maggie);
-    // await universityService.authenticate(maggie);
+    await universityService.authenticate(maggie);
     dublinList = await universityService.createCounty(dublin);
     dublinList.userid = user._id;
     for (let i = 0; i < universities.length; i += 1) {
