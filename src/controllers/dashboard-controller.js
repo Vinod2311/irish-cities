@@ -21,8 +21,17 @@ export const dashboardController = {
     validate: {
       payload: countySpec,
       options: { abortEarly: false },
+      
       failAction: function (request, h, error) {
-          return h.view("dashboard-view", {title: "Add county error", errors: error.details }).takeover().code(400);
+        const loggedInUser = request.auth.credentials;
+        const counties = db.countyStore.getUserCounties(loggedInUser._id);
+        const viewData = {
+          title: "Add county error",
+          counties: counties,
+          user: loggedInUser, 
+          errors: error.details
+        };
+          return h.view("dashboard-view", viewData).takeover().code(400)
       }
   },
     handler: async function (request, h) {

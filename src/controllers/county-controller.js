@@ -20,7 +20,13 @@ export const countyController = {
       payload: universitySpec,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
-          return h.view("county-view", {title: "Add university error", errors: error.details }).takeover().code(400);
+        const county = db.countyStore.getCountyById(request.params.id);
+        const viewData = {
+          title: "Add university error",
+          county: county,
+          error: error.details
+        }
+          return h.view("county-view", viewData).takeover().code(400);
       }
   },
     handler: async function (request, h) {

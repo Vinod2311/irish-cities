@@ -1,7 +1,7 @@
 import { University } from "./university.js";
 
 export const universityMongoStore = {
-  async getAlluniversities() {
+  async getAllUniversities() {
     const universities = await University.find().lean();
     return universities;
   },

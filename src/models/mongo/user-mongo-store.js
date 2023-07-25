@@ -2,7 +2,7 @@ import {User } from "./user.js";
 
 export const userMongoStore = {
   async getAllUsers() {
-    const users = await user.find().lean();
+    const users = await User.find().lean();
     return users;
   },
 

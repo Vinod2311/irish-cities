@@ -34,6 +34,9 @@ export const dublin = {
 
 export const TCD = {
   name: "Trinity College Dublin",
+  lat: 53.34397,
+  lng: -6.25404,
+  description: "sample text"
 };
 
 
@@ -51,12 +54,21 @@ export const testCounties = [
 
 export const testUniversities = [
   {
-    name: "SETU" 
+    name: "DCU",
+    lat: 53.38566,
+    lng: -6.25878,
+    description: "sample text"
   },
   {
-    name: "UCD"
+    name: "UCD",
+    lat: 53.30834,
+    lng: -6.22785,
+    description: "sample text"
   },
   {
-    name: "GU"
+    name: "TU Dublin",
+    lat: 53.33895,
+    lng: -6.26678,
+    description: "sample text"
   }
 ];
