@@ -20,9 +20,17 @@ const __dirname = path.dirname(__filename);
 
 const swaggerOptions = {
   info: {
-    title: "Playtime API",
-    version: "0.1",
+    title: "Irish universities API",
+    version: "0.1"
   },
+  securityDefinitions: {
+    jwt: {
+      type: "apiKey",
+      name: "Authorization",
+      in: "header"
+    }
+  },
+  security: [{ jwt: [] }]
 };
 
 const result = dotenv.config();

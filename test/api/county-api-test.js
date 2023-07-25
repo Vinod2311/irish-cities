@@ -2,7 +2,7 @@ import { assert } from "chai";
 import { universityService } from "./university-service.js";
 import { assertSubset } from "../test-utils.js";
 import { db } from "../../src/models/db.js";
-import { testCounties, dublin, maggie } from "../fixtures.js";
+import { testCounties, dublin, maggie, maggieCredentials } from "../fixtures.js";
 
 const counties = new Array(testCounties.length);
 suite("County API tests", () => {
@@ -13,12 +13,12 @@ suite("County API tests", () => {
     db.init("mongo");
     universityService.clearAuth();
     user = await universityService.createUser(maggie);
-    await universityService.authenticate(maggie); 
+    await universityService.authenticate(maggieCredentials); 
     await universityService.deleteAllUniversities();
     await universityService.deleteAllCounties();
     await universityService.deleteAllUsers();
     user = await universityService.createUser(maggie);
-    await universityService.authenticate(maggie);
+    await universityService.authenticate(maggieCredentials);
      dublin.userId = user._id;
       for (let i = 0; i < testCounties.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop

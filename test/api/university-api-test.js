@@ -2,7 +2,7 @@ import { assert } from "chai";
 import { universityService } from "./university-service.js";
 import { assertSubset } from "../test-utils.js";
 import { db } from "../../src/models/db.js";
-import { maggie, testUniversities, dublin, TCD } from "../fixtures.js";
+import { maggie, testUniversities, dublin, TCD, maggieCredentials } from "../fixtures.js";
 
 const universities = new Array(testUniversities.length);
 suite("university API tests", () => {
@@ -14,12 +14,12 @@ suite("university API tests", () => {
     db.init("mongo");
     universityService.clearAuth();
     user = await universityService.createUser(maggie);
-    await universityService.authenticate(maggie);
+    await universityService.authenticate(maggieCredentials);
     await universityService.deleteAllCounties();
     await universityService.deleteAllUniversities();
     await universityService.deleteAllUsers();
     user = await universityService.createUser(maggie);
-    await universityService.authenticate(maggie);
+    await universityService.authenticate(maggieCredentials);
     dublinList = await universityService.createCounty(dublin);
     dublinList.userid = user._id;
     for (let i = 0; i < universities.length; i += 1) {

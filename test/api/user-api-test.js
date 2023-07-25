@@ -1,7 +1,7 @@
 import { assert } from "chai";
 import { universityService } from "./university-service.js";
 import { assertSubset } from "../test-utils.js";
-import { maggie, testUsers } from "../fixtures.js";
+import { maggie, testUsers, maggieCredentials } from "../fixtures.js";
 import { db } from "../../src/models/db.js";
 
 const users = new Array(testUsers.length);
@@ -13,10 +13,10 @@ suite("User API tests", () => {
     db.init("mongo")
     universityService.clearAuth();
     user = await universityService.createUser(maggie);
-    await universityService.authenticate(maggie);
+    await universityService.authenticate(maggieCredentials);
     await universityService.deleteAllUsers();
     user = await universityService.createUser(maggie);
-    await universityService.authenticate(maggie);
+    await universityService.authenticate(maggieCredentials);
     for (let i = 0; i < testUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       users[i] = await universityService.createUser(testUsers[i]);
@@ -36,7 +36,7 @@ suite("User API tests", () => {
     assert.equal(returnedUsers.length, 4);
     await universityService.deleteAllUsers();
     user = await universityService.createUser(maggie);
-    await universityService.authenticate(maggie);
+    await universityService.authenticate(maggieCredentials);
     returnedUsers = await universityService.getAllUsers();
     assert.equal(returnedUsers.length, 1);
   });
@@ -59,7 +59,7 @@ suite("User API tests", () => {
   test("get a user - deleted user", async () => {
     await universityService.deleteAllUsers();
     user = await universityService.createUser(maggie);
-    await universityService.authenticate(maggie);
+    await universityService.authenticate(maggieCredentials);
     try {
       const returnedUser = await universityService.getUser(users[0]._id);
       assert.fail("Should not return a response");

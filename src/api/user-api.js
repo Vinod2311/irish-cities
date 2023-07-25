@@ -1,13 +1,17 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
 import { validationError } from "./logger.js";
-import { idSpec,userArraySpec, userSpec, userSpecPlus } from "../models/joi-schemas.js";
+import { idSpec,jwtAuth,userArraySpec, userCredentialsSpec, userSpec, userSpecPlus } from "../models/joi-schemas.js";
 import { createToken } from "./jwt-utils.js";
 
 export const userApi = {
 
   authenticate: {
     auth: false,
+    tags: ["api"],
+    description: "Authenticate user",
+    notes: "Checks to see if user is present in database, if so creates a JSON web token and returns this token",
+    validate: { payload: userCredentialsSpec, failAction: validationError},
     handler: async function (request, h) {
       try {
         const user = await db.userStore.getUserByEmail(request.payload.email);
@@ -23,6 +27,7 @@ export const userApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+    response: {schema: jwtAuth, failAction: validationError}
   },
 
   find: {
