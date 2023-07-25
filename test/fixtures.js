@@ -45,10 +45,10 @@ export const testCounties = [
     name: "Cork"
   },
   {
-    title: "Waterford"
+    name: "Waterford"
   },
   {
-    title: "Galway"
+    name: "Galway"
   }
 ];
 

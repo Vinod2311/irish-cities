@@ -4,13 +4,14 @@ import { assertSubset } from "../test-utils.js";
 import { maggie, testUsers } from "../fixtures.js";
 import { db } from "../../src/models/db.js";
 
+const users = new Array(testUsers.length);
 suite("User API tests", () => {
   db.init("mongo")
   setup(async () => {
     await universityService.deleteAllUsers();
     for (let i = 0; i < testUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
-      testUsers[i] = await universityService.createUser(testUsers[i]);
+      users[i] = await universityService.createUser(testUsers[i]);
     }
   });
   teardown(async () => {
@@ -31,7 +32,30 @@ suite("User API tests", () => {
   });
 
   test("get a user - success", async () => {
-    const returnedUser = await universityService.getUser(testUsers[0]._id);
-    assert.deepEqual(testUsers[0], returnedUser);
+    const returnedUser = await universityService.getUser(users[0]._id);
+    assert.deepEqual(users[0], returnedUser);
   });
+
+  test("get a user - bad id", async () => {
+    try {
+      const returnedUser = await universityService.getUser("1234");
+      assert.fail("Should not return a response");
+    } catch (error) {
+      assert(error.response.data.message === "No User with this id");
+      // assert.equal(error.response.data.statusCode, 503);
+    }
+  });
+
+  test("get a user - deleted user", async () => {
+    await universityService.deleteAllUsers();
+    try {
+      const returnedUser = await universityService.getUser(users[0]._id);
+      assert.fail("Should not return a response");
+    } catch (error) {
+      assert(error.response.data.message === "No User with this id");
+      assert.equal(error.response.data.statusCode, 404);
+    }
+  });
+
+
 });

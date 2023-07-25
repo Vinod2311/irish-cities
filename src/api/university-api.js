@@ -1,14 +1,14 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
-// import { idSpec, universityArraySpec, universitySpec, universitySpecPlus } from "../models/joi-schemas.js";
-// import { validationError } from "./logger.js";
+import { idSpec, universityArraySpec, universitySpec, universitySpecPlus } from "../models/joi-schemas.js";
+import { validationError } from "./logger.js";
 
 export const universityApi = {
   find: {
-    auth: false, /*
+    auth: false, 
     tags: ["api"],
     description: "Get all universities",
-    notes: "Get all universities", */
+    notes: "Get all universities", 
     handler: async function (request, h) {
       try {
         const universities = await db.universityStore.getAllUniversities();
@@ -17,15 +17,15 @@ export const universityApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
-    // response: {schema: universityArraySpec, failAction: validationError}
+    response: {schema: universityArraySpec, failAction: validationError}
   },
 
   findOne: {
-    auth: false,/*
+    auth: false,
     tags: ["api"],
     description: "Get a specific university",
     notes: "Returns a university with given Id",
-    validate: { params: { id: IdSpec}, failAction: validationError}, */
+    validate: { params: { id: idSpec}, failAction: validationError},
     handler: async function (request, h) {
       try {
         const university = await db.universityStore.getUniversityById(request.params.id);
@@ -37,15 +37,15 @@ export const universityApi = {
         return Boom.serverUnavailable("No university with this id");
       }
     },
-    // response: {schema: universitiespecPlus, failAction: validationError}
+    response: {schema: universitySpecPlus, failAction: validationError}
   },
 
   create: {
-    auth: false, /*
-    validate: {payload: universitiespec, params: { id: IdSpec }, failAction: validationError},
+    auth: false,
+    validate: {payload: universitySpec, params: { id: idSpec }, failAction: validationError},
     tags: ["api"],
     description: "Create a university",
-    notes: "Creates a university and returns created university", */
+    notes: "Creates a university and returns created university", 
     handler: async function (request, h) {
       try {
         const university = await db.universityStore.addUniversity(request.params.id, request.payload);
@@ -57,15 +57,15 @@ export const universityApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
-    // response: {schema: universitiespecPlus, failAction: validationError}
+    response: {schema: universitySpecPlus, failAction: validationError}
   },
 
   deleteOne: {
-    auth: false,/*
-    validate: { params: { id: IdSpec }, failAction: validationError},
+    auth: false,
+    validate: { params: { id: idSpec }, failAction: validationError},
     tags: ["api"],
     description: "Delete a university",
-    notes: "Deletes a university with the given Id", */
+    notes: "Deletes a university with the given Id", 
     handler: async function (request, h) {
       try {
         const university = await db.universityStore.getUniversityById(request.params.id);
@@ -81,10 +81,10 @@ export const universityApi = {
   },
 
   deleteAll: {
-    auth: false, /*
+    auth: false, 
     tags: ["api"],
     description: "Deletes all universities",
-    notes: "Deletes all universities", */
+    notes: "Deletes all universities",
     handler: async function (request, h) {
       try {
         await db.universityStore.deleteAllUniversities();

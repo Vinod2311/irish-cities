@@ -13,7 +13,7 @@ export const universitySpec = Joi.object()
     lat: Joi.number().allow("").optional(),
     lng: Joi.number().allow("").optional(),
     description: Joi.string().allow("").optional(),
-    countyid: idSpec
+    countyId: idSpec
   })
   .label("universityDetails");
 

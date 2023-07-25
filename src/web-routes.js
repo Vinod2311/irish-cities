@@ -17,4 +17,6 @@ export const webRoutes = [
   { method: "GET", path: "/county/{id}", config: countyController.index },
   { method: "POST", path: "/county/{id}/addUniversity", config: countyController.addUniversity },
   { method: "GET", path: "/county/{id}/deleteUniversity/{universityId}", config: countyController.deleteUniversity },
+  
+  { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } }
 ];
