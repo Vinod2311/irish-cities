@@ -4,6 +4,9 @@
   "description": "Irish cities: A Hapi application for learning about Irish cities.",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "start": "node src/server.js",
     "lint": "./node_modules/.bin/eslint . --ext .js",
