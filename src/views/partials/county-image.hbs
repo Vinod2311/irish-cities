@@ -3,11 +3,13 @@
     <figure class="image is-256x256">
       <img src={{county.img}}>
     </figure>
-    <a href="/county/{{county._id}}/deleteImage" class="button">
-      <span class="icon is-small">
-        <i class="fas fa-trash"></i>
-      </span>
-    </a>
+    {{#if county.img}}
+      <a href="/county/{{county._id}}/deleteImage" class="button">
+        <span class="icon is-small">
+          <i class="fas fa-trash"></i>
+        </span>
+      </a>
+    {{/if}}
   </div>
   <div class="card-content">
     <form action="/county/{{county._id}}/uploadImage" method="POST" enctype="multipart/form-data">

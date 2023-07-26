@@ -18,6 +18,12 @@ export const seedData = {
       lastName: "Simpson",
       email: "bart@simpson.com",
       password: "secret"
+    },
+    vinod: {
+      firstName: "Vinod",
+      lastName: "Yadav",
+      email: "vinod@yadav.com",
+      password: "secret"
     }
   },
   counties: {

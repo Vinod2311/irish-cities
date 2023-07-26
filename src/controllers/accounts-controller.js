@@ -37,6 +37,14 @@ export const accountsController = {
     },
   },
 
+  showAdminLogin: {
+    auth: false,
+    
+    handler: function (request, h) {
+      return h.view("admin-login-view", { title: "Admin Login" });
+    },
+  },
+
   login: {
     auth: false,
     validate: {
@@ -56,6 +64,42 @@ export const accountsController = {
         return h.redirect("/dashboard");
       },  
   },
+
+  adminLogin: {
+    auth: false,
+    validate: {
+        payload: userCredentialsSpec,
+        options: { abortEarly: false },
+        failAction: function (request, h, error) {
+            return h.view("admin-login-view", {title: "Admin Login error", errors: error.details }).takeover().code(400);
+        }
+    },
+    handler: async function (request, h) {
+        const { email, password } = request.payload;
+        const user = await db.userStore.getUserByEmail(email);
+        if (email !== "vinod@yadav.com" || password !== "secret") {
+          return h.redirect("/adminLogin");
+        }
+        request.cookieAuth.set({ id: user._id });
+        return h.redirect("/admin");
+      },  
+  },
+
+  showAdmin: {
+    handler: async function (request, h) {
+      const admin = request.auth.credentials;
+      const users = await db.userStore.getAllUsers();
+      const viewData = {
+        title: "Admin",
+        admin: admin,
+        users: users, 
+      };
+      return h.view("admin-view", viewData);
+    },
+  },
+
+  
+
   logout: {
     auth: false,
     handler: function (request, h) {
@@ -71,8 +115,7 @@ export const accountsController = {
         title: "User",
         user: loggedInUser, 
       };
-      console.log("Displaying User page");
-      return h.view("user", viewData);
+      return h.view("user-view", viewData);
     },
   },
 
@@ -93,7 +136,18 @@ export const accountsController = {
       const loggedInUser = request.auth.credentials; 
       const updatedUser = request.payload;
       await db.userStore.updateUser(loggedInUser._id,updatedUser);
-      return h.redirect("user");
+      return h.redirect("/user");
+    },
+  },
+
+  deleteUser: {
+    auth: false,
+    handler: async function (request, h) {
+      const admin = request.auth.credentials;
+      const user = await db.userStore.getUserById(request.params.id);
+      await db.userStore.deleteUserById(user._id);
+      console.log("Deleted user");
+      return h.redirect("/admin");
     },
   },
   

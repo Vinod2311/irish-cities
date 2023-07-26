@@ -1,4 +1,5 @@
-export const serviceUrl = "https://irish-universities.onrender.com";
+// export const serviceUrl = "https://irish-universities.onrender.com";
+export const serviceUrl = "http://localhost:3000";
 
 export const maggie = {
   firstName: "Maggie",
@@ -29,6 +30,12 @@ export const testUsers = [
     firstName: "Bart",
     lastName: "Simpson",
     email: "bart@simpson.com",
+    password: "secret"
+  },
+  {
+    firstName: "Vinod",
+    lastName: "Yadav",
+    email: "vinod@yadav.com",
     password: "secret"
   }
 ];

@@ -21,7 +21,7 @@ suite("User Model tests", () => {
 
   test("delete all users", async () => {
     let returnedUsers = await db.userStore.getAllUsers();
-    assert.equal(returnedUsers.length, 3);
+    assert.equal(returnedUsers.length, 4);
     await db.userStore.deleteAll();
     returnedUsers = await db.userStore.getAllUsers();
     assert.equal(returnedUsers.length, 0);

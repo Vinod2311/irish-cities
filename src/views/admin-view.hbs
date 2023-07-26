@@ -1,0 +1,36 @@
+{{> menu }}
+{{#each users}}
+  <div class="box">
+      <table class="table is-bordered is-fullwidth is-hoverable">
+          <h1 class="is-size-2 has-text-centered">{{firstName}} {{lastname}}</h1>
+          <thead>
+          <tr>
+              <th>Field</th>
+              <th>Value</th>
+              
+          </tr>
+          </thead>
+
+          <tbody>
+          <tr>
+              <td data-label="Field">First Name</td>
+              <td data-label="Value">{{firstName}}</td>
+          </tr>
+          <tr>
+              <td data-label="Field">Last Name</td>
+              <td data-label="Value">{{lastName}}</td>
+          </tr>
+          <tr>
+              <td data-label="Field">Email</td>
+              <td data-label="Value">{{email}}</td>
+          </tr>
+          </tbody>
+          
+      </table>
+      <a href="/deleteUser/{{_id}}" class="button">
+        <span class="icon is-small">
+        <i class="fas fa-trash"></i>
+        </span>
+      </a>
+  </div>
+{{/each}}
