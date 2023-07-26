@@ -59,6 +59,13 @@ export const userCredentialsSpec = Joi.object()
   })
   .label("UserCredentials");
 
+export const userEditDetails = Joi.object()
+  .keys({
+    firstName: Joi.string().example("Homer").required(),
+    lastName: Joi.string().example("Simpson").required(),
+    email: Joi.string().email().example("homer@simpson.com").required(),
+  }).label("UserEditDetails");
+
 
 export const userSpec = userCredentialsSpec.keys({
     firstName: Joi.string().example("Homer").required(),

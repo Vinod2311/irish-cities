@@ -20,12 +20,12 @@ export const countyController = {
     validate: {
       payload: universitySpec,
       options: { abortEarly: false },
-      failAction: function (request, h, error) {
-        const county = db.countyStore.getCountyById(request.params.id);
+      failAction: async function (request, h, error) {
+        const county = await db.countyStore.getCountyById(request.params.id);
         const viewData = {
           title: "Add university error",
           county: county,
-          error: error.details
+          errors: error.details
         }
           return h.view("county-view", viewData).takeover().code(400);
       }

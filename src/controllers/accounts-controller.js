@@ -1,5 +1,5 @@
 import { db } from "../models/db.js";
-import { userSpec,userCredentialsSpec } from "../models/joi-schemas.js";
+import { userSpec,userCredentialsSpec, userEditDetails } from "../models/joi-schemas.js";
 
 export const accountsController = {
   index: {
@@ -64,6 +64,40 @@ export const accountsController = {
     },
   },
 
+  showUser: {
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials; 
+      const viewData = {
+        title: "User",
+        user: loggedInUser, 
+      };
+      console.log("Displaying User page");
+      return h.view("user", viewData);
+    },
+  },
+
+  editUserDetails: {
+    validate: {
+      payload: userEditDetails,
+      options: { abortEarly: false },
+      failAction: function ( request, h, error){
+        const viewData = {
+          title: "Edit user error",
+          user: request.auth.credentials,
+          errors:  error.details,
+        };
+        return h.view("user", viewData).takeover().code(400);
+      },
+    },
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials; 
+      const updatedUser = request.payload;
+      await db.userStore.updateUser(loggedInUser._id,updatedUser);
+      return h.redirect("user");
+    },
+  },
+  
+
   async validate(request, session) {
     const user = await db.userStore.getUserById(session.id);
     if (!user) {
@@ -72,3 +106,4 @@ export const accountsController = {
     return { isValid: true, credentials: user };
   },
 };
+

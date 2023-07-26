@@ -22,9 +22,9 @@ export const dashboardController = {
       payload: countySpec,
       options: { abortEarly: false },
       
-      failAction: function (request, h, error) {
+      failAction: async function (request, h, error) {
         const loggedInUser = request.auth.credentials;
-        const counties = db.countyStore.getUserCounties(loggedInUser._id);
+        const counties = await db.countyStore.getUserCounties(loggedInUser._id);
         const viewData = {
           title: "Add county error",
           counties: counties,
@@ -32,8 +32,8 @@ export const dashboardController = {
           errors: error.details
         };
           return h.view("dashboard-view", viewData).takeover().code(400)
-      }
-  },
+      },
+    },
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       const newCounty = {
