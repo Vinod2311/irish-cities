@@ -4,9 +4,10 @@ const { Schema } = Mongoose;
 
 const countySchema = new Schema({
   name: String,
+  img: String,
   userId: {
     type: Schema.Types.ObjectId,
-    ref: "user",
+    ref: "User",
   },
 });
 

@@ -1,9 +1,14 @@
 {{> menu}}
 
-<section class="section">
-  <div class="title">
-    {{county.name}}
+<section class="section columns is-vcentered">
+  <div class="column has-text-centered">
+    <div class="title">
+      {{county.name}}
+    </div>
+    {{> list-universities}}
+    {{> add-university}}
   </div>
-  {{> list-universities}}
-  {{> add-university}}
+  <div class="column">
+    {{> county-image}}
+  </div>
 </section>

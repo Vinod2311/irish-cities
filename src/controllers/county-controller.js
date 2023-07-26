@@ -1,5 +1,6 @@
 import { db } from "../models/db.js";
 import { universitySpec } from "../models/joi-schemas.js";
+import { imageStore } from "../models/images-store.js";
 
 export const countyController = {
   index: {
@@ -48,5 +49,46 @@ export const countyController = {
       await db.universityStore.deleteUniversityById(request.params.universityId);
       return h.redirect(`/county/${county._id}`);
     },
+  },
+
+  uploadImage: {
+    handler: async function (request, h) {
+      try {
+        const county = await db.countyStore.getCountyById(request.params.id);
+        const file = request.payload.imagefile;
+        if (Object.keys(file).length > 0) {
+          const url = await imageStore.uploadImage(request.payload.imagefile);
+          county.img = url;
+          await db.countyStore.updateCounty(county);
+        }
+        return h.redirect(`/county/${county._id}`);
+      } catch (err) {
+        console.log(err);
+        return h.redirect(`/county/${county._id}`);
+      }
+    },
+    payload: {
+      multipart: true,
+      output: "data",
+      maxBytes: 209715200,
+      parse: true,
+    },
+  },
+
+  deleteImage: {
+    handler: async function (request, h) {
+      try {
+      const county = await db.countyStore.getCountyById(request.params.id);
+      if (county.img) {
+        await imageStore.deleteImage(county.img).then(result=>console.log(result));
+        county.img = "";
+        await db.countyStore.updateCounty(county);
+      }
+      return h.redirect(`/county/${county._id}`);
+      } catch (err) {
+        console.log(err);
+        return h.redirect(`/county/${county._id}`);
+      }
+    }
   },
 };

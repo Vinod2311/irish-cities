@@ -9,7 +9,7 @@ const universitySchema = new Schema({
   description: String,
   countyId: {
     type: Schema.Types.ObjectId,
-    ref: "county",
+    ref: "County",
   },
 });
 

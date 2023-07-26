@@ -40,5 +40,13 @@ export const countyMongoStore = {
 
   async deleteAllCounties() {
     await County.deleteMany({});
-  }
+  },
+
+  async updateCounty(updatedCounty) {
+    const county = await County.findOne({ _id: updatedCounty._id });
+    county.name = updatedCounty.name;
+    county.img = updatedCounty.img;
+    await county.save();
+  },
+
 };

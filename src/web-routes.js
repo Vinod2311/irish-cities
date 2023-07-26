@@ -18,5 +18,8 @@ export const webRoutes = [
   { method: "POST", path: "/county/{id}/addUniversity", config: countyController.addUniversity },
   { method: "GET", path: "/county/{id}/deleteUniversity/{universityId}", config: countyController.deleteUniversity },
   
+  { method: "POST", path: "/county/{id}/uploadImage", config: countyController.uploadImage },
+  { method: "GET", path: "/county/{id}/deleteImage", config: countyController.deleteImage },
+
   { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } }
 ];

@@ -2,6 +2,7 @@ import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
 import { idSpec, countyArraySpec, countySpec, countySpecPlus } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
+import { imageStore } from "../models/images-store.js";
 
 export const countyApi = {
   find: {
