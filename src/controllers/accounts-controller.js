@@ -129,7 +129,7 @@ export const accountsController = {
           user: request.auth.credentials,
           errors:  error.details,
         };
-        return h.view("user", viewData).takeover().code(400);
+        return h.view("user-view", viewData).takeover().code(400);
       },
     },
     handler: async function (request, h) {
