@@ -1,6 +1,6 @@
 {
   "name": "irish-universities",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Irish universities: A Hapi application for learning about Irish universities.",
   "main": "index.js",
   "type": "module",

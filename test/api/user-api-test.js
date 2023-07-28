@@ -33,7 +33,7 @@ suite("User API tests", () => {
 
   test("delete all users", async () => {
     let returnedUsers = await universityService.getAllUsers();
-    assert.equal(returnedUsers.length, 4);
+    assert.equal(returnedUsers.length, 5);
     await universityService.deleteAllUsers();
     user = await universityService.createUser(maggie);
     await universityService.authenticate(maggieCredentials);
