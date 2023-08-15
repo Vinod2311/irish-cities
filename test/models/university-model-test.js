@@ -1,18 +1,21 @@
 import { assert } from "chai";
 import { EventEmitter } from "events";
 import { db } from "../../src/models/db.js";
-import { dublin ,testUniversities, TCD} from "../fixtures.js";
+import { dublin ,testUniversities, TCD, maggie} from "../fixtures.js";
 import { assertSubset } from "../test-utils.js";
 
 suite("University Model tests", () => {
   
   let county = null;
+  let user = null;
 
   setup(async () => {
     db.init("mongo");
+    await db.userStore.deleteAll();
     await db.countyStore.deleteAllCounties();
     await db.universityStore.deleteAllUniversities();
-    county = await db.countyStore.addCounty(dublin)
+    user = await db.userStore.addUser(maggie);
+    county = await db.countyStore.addCounty(dublin, user._id);
     for (let i = 0; i < testUniversities.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       testUniversities[i] = await db.universityStore.addUniversity(county._id, testUniversities[i]);

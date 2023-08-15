@@ -8,6 +8,8 @@ suite("User Model tests", () => {
   setup(async () => {
     db.init("mongo");
     await db.userStore.deleteAll();
+    await db.countyStore.deleteAllCounties();
+    await db.universityStore.deleteAllUniversities();
     for (let i = 0; i < testUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       testUsers[i] = await db.userStore.addUser(testUsers[i]);

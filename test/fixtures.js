@@ -1,5 +1,5 @@
-export const serviceUrl = "https://irish-universities.onrender.com";
-// export const serviceUrl = "http://localhost:3000";
+// export const serviceUrl = "https://irish-universities.onrender.com";
+export const serviceUrl = "http://localhost:3000";
 
 export const maggie = {
   firstName: "Maggie",
@@ -60,7 +60,7 @@ export const testCounties = [
     name: "Waterford"
   },
   {
-    name: "Galway"
+    name: "Wexford"
   }
 ];
 

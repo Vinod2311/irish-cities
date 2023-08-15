@@ -42,8 +42,10 @@ suite("User API tests", () => {
   });
 
   test("get a user - success", async () => {
-    const returnedUser = await universityService.getUser(users[0]._id);
-    assert.deepEqual(users[0], returnedUser);
+    const returnedUser1 = await universityService.getUser(users[0]._id);
+    assert.deepEqual(users[0], returnedUser1);
+    const returnedUser2 = await universityService.getUserByEmail(users[0].email);
+    assert.deepEqual(users[0], returnedUser2);
   });
 
   test("get a user - bad id", async () => {

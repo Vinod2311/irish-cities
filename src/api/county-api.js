@@ -45,6 +45,28 @@ export const countyApi = {
     response: { schema: countySpecPlus, failAction: validationError}
   },
 
+  findUserCounties: {
+    auth: {
+      strategy: "jwt"
+    }, 
+    validate: { params: { userId: idSpec}, failAction: validationError},
+    tags: ["api"],
+    description: "Return a user's counties",
+    notes: "Return all counties with a specific user ID", 
+    handler: async function (request, h) {
+      try {
+        const counties = await db.countyStore.getUserCounties(request.params.userId);
+        if (!counties) {
+          return Boom.notFound("No county with this user id");
+        }
+        return counties;
+      } catch (err) {
+        return Boom.serverUnavailable("No county with this user id");
+      }
+    },
+    response: { schema: countyArraySpec, failAction: validationError}
+  },
+
   deleteOne: {
     auth: {
       strategy: "jwt"
@@ -77,7 +99,7 @@ export const countyApi = {
     validate: { payload: countySpec, failAction: validationError}, 
     handler: async function (request, h) {
       try {
-        const county = await db.countyStore.addCounty(request.payload);
+        const county = await db.countyStore.addCounty(request.payload,request.params.userId);
         if (county) {
           return h.response(county).code(201);
         }
@@ -104,5 +126,55 @@ export const countyApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
+  },
+
+  uploadImage: {
+    auth: false,
+    tags: ["api"],
+    description: "Upload Image",
+    notes: "Upload one image to cloudinary",
+    handler: async function (request, h) {
+      try {
+        const county = await db.countyStore.getCountyById(request.params.id);
+        const file = request.payload.imagefile;
+        if (Object.keys(file).length > 0) {
+          const url = await imageStore.uploadImage(request.payload.imagefile);
+          county.img = url;
+          await db.countyStore.updateCounty(county);
+          return h.response(url).code(201);
+        }
+        return Boom.badImplementation("error uploading image");
+      } catch (err) {
+        return Boom.serverUnavailable("Database error")
+        
+      }
+    },
+    payload: {
+      multipart: true,
+      output: "data",
+      maxBytes: 209715200,
+      parse: true,
+    },
+  },
+
+  deleteImage: {
+    auth: false,
+    tags: ["api"],
+    description: "Delete image",
+    notes: "Delete image on database",
+    handler: async function (request, h) {
+      try {
+      const county = await db.countyStore.getCountyById(request.params.id);
+      if (county.img) {
+        await imageStore.deleteImage(county.img).then(result=>console.log(result));
+        county.img = "";
+        await db.countyStore.updateCounty(county);
+        return h.response().code(201);
+      }
+      return Boom.badImplementation("error deleting image");
+      } catch (err) {
+        return Boom.serverUnavailable("Database error")
+      }
+    }
   },
 };

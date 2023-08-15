@@ -19,15 +19,16 @@ export const countyMongoStore = {
     return null;
   },
 
-  async addCounty(county) {
+  async addCounty(county,userId) {
+    county.userId = userId;
     const newCounty = new County(county);
     const countyObj = await newCounty.save();
     return this.getCountyById(countyObj._id);
   },
 
   async getUserCounties(id) {
-    const county = await County.find({ userId: id }).lean();
-    return county;
+    const counties = await County.find({ userId: id }).lean();
+    return counties;
   },
 
   async deleteCountyById(id) {

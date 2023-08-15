@@ -50,8 +50,8 @@ export const userApi = {
 
   findOne: {
     tags: ["api"],
-    description: "Get a specific user",
-    notes: "Returns details of one user",
+    description: "Get a specific user by user ID",
+    notes: "Returns details of one user by user ID",
     auth: {
       strategy: "jwt"
     },
@@ -67,6 +67,28 @@ export const userApi = {
       }
     },
     validate: { params: { id: idSpec }, failAction: validationError },
+    response: { schema: userSpecPlus, failAction: validationError}
+  },
+
+  findOneByEmail: {
+    tags: ["api"],
+    description: "Get a specific user by email",
+    notes: "Returns details of one user by email",
+    auth: {
+      strategy: "jwt"
+    },
+    handler: async function (request, h) {
+      try {
+        const user = await db.userStore.getUserByEmail(request.params.email);
+        if (!user) {
+          return Boom.notFound("No User with this email");
+        }
+        return user;
+      } catch (err) {
+        return Boom.serverUnavailable("No User with this email");
+      }
+    },
+    
     response: { schema: userSpecPlus, failAction: validationError}
   },
 

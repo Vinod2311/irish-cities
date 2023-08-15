@@ -20,8 +20,7 @@ suite("University API tests", () => {
     await universityService.deleteAllUsers();
     user = await universityService.createUser(maggie);
     await universityService.authenticate(maggieCredentials);
-    dublinList = await universityService.createCounty(dublin);
-    dublinList.userid = user._id;
+    dublinList = await universityService.createCounty(dublin,user._id);
     for (let i = 0; i < universities.length; i += 1) {
         // eslint-disable-next-line no-await-in-loop
         universities[i] = await universityService.createUniversity(dublinList._id,testUniversities[i]);

@@ -1,8 +1,10 @@
 import { assert } from "chai";
+import {readFileSync} from "fs";
 import { universityService } from "./university-service.js";
 import { assertSubset } from "../test-utils.js";
 import { db } from "../../src/models/db.js";
 import { testCounties, dublin, maggie, maggieCredentials } from "../fixtures.js";
+import { imageStore } from "../../src/models/images-store.js";
 
 const counties = new Array(testCounties.length);
 suite("County API tests", () => {
@@ -19,19 +21,24 @@ suite("County API tests", () => {
     await universityService.deleteAllUsers();
     user = await universityService.createUser(maggie);
     await universityService.authenticate(maggieCredentials);
-     dublin.userId = user._id; 
       for (let i = 0; i < testCounties.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
-      counties[i] = await universityService.createCounty(testCounties[i]);
+      counties[i] = await universityService.createCounty(testCounties[i],user._id);
     }  
   }); 
   teardown(async () => {
   });
 
   test("create a county", async () => {
-    const newCounty = await universityService.createCounty(dublin);
+    const newCounty = await universityService.createCounty(dublin,user._id);
     assertSubset(dublin, newCounty);
     assert.isDefined(newCounty._id);
+  });
+
+  test("get user counties", async () => {
+    const returnedCounties = await universityService.getUserCounties(user._id);
+    assert.equal(returnedCounties.length,3);
+
   });
 
   test("delete all counties", async () => {
@@ -89,6 +96,13 @@ suite("County API tests", () => {
     }
   });
 
+  test("Upload an image - success", async () => {
+    const newCounty = await universityService.createCounty(dublin,user._id);
+    const imagefile = readFileSync('./public/images/test-image.jpg');
+    await imageStore.uploadImage(imagefile);
+    await universityService.uploadImage(imagefile,newCounty._id);
+
+  });
 
 
 });

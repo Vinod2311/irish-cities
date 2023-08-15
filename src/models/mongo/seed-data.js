@@ -40,6 +40,10 @@ export const seedData = {
       name: "Wexford",
       userId: "->users.homer"
     },
+    waterford: {
+      name: "Waterford",
+      userId: "->users.homer"
+    },
     galway: {
       name: "Galway",
       userId: "->users.marge"
@@ -51,35 +55,35 @@ export const seedData = {
       name: "Trinity College Dublin",
       lat: 53.34397,
       lng: -6.25404,
-      description: "sample text",
+      description: "sample description",
       countyId: "->counties.dublin"
     },
     dcu:{
       name: "Dublin City University",
       lat: 53.38566,
       lng: -6.25878,
-      description: "sample text",
+      description: "sample description",
       countyId: "->counties.dublin"
     },
     ucd:{
       name: "University College Dublin",
       lat: 53.30834,
       lng: -6.22785,
-      description: "sample text",
+      description: "sample description",
       countyId: "->counties.dublin"
     },
     tud:{
       name: "Technological University Dublin",
       lat: 53.33895,
       lng: -6.26678,
-      description: "sample text",
+      description: "sample description",
       countyId: "->counties.dublin"
     },
     setu:{
       name: "South East Technological University",
-      lat: 52.49898,
-      lng: -6.52733,
-      description: "sample text",
+      lat: 52.33566,
+      lng: -6.47190,
+      description: "sample description",
       countyId: "->counties.wexford"
     }
 

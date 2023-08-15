@@ -25,6 +25,11 @@ export const universityService = {
     return res.data;
   },
 
+  async getUserByEmail(email) {
+    const res = await axios.get(`${this.universityUrl}/api/users/email/${email}`);
+    return res.data;
+  },
+
   async getAllUsers() {
     const res = await axios.get(`${this.universityUrl}/api/users`);
     return res.data;
@@ -37,13 +42,18 @@ export const universityService = {
 
 
 
-  async createCounty(county) {
-    const res = await axios.post(`${this.universityUrl}/api/counties`, county);
+  async createCounty(county,userId) {
+    const res = await axios.post(`${this.universityUrl}/api/users/${userId}/counties`, county);
     return res.data;
   },
 
   async getCounty(id) {
     const res = await axios.get(`${this.universityUrl}/api/counties/${id}`);
+    return res.data;
+  },
+
+  async getUserCounties(userId) {
+    const res = await axios.get(`${this.universityUrl}/api/users/${userId}/counties`);
     return res.data;
   },
 
@@ -86,6 +96,12 @@ export const universityService = {
 
   async deleteAllUniversities() {
     const res = await axios.delete(`${this.universityUrl}/api/universities`);
-    return res.data;}
+    return res.data;
+  },
+
+  async uploadImage(imagefile,countyId) {
+    const res = await axios.post(`${this.universityUrl}/api/county/${countyId}/uploadImage`, imagefile);
+    return res.data;
+  }
 
 };

@@ -42,6 +42,8 @@ if (result.error) {
 async function init() {
   const server = Hapi.server({
     port: process.env.PORT || 3000,
+    host: "localhost",
+    routes: { cors: true },
   });
   await server.register(Vision);
   await server.register(Cookie);
@@ -78,7 +80,7 @@ async function init() {
     layout: true,
     isCached: false,
   });
-  db.init("mongo");
+  await db.init("mongo");
   server.route(webRoutes);
   server.route(apiRoutes);
   await server.start();

@@ -36,6 +36,7 @@ export const countySpec = Joi.object()
     name: Joi.string().required(),
     userId: idSpec,
     universities: universityArraySpec,
+    img: Joi.string().optional().allow('')
   })
   .label("countyDetalis");
 
