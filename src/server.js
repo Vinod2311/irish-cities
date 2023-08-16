@@ -21,7 +21,7 @@ const __dirname = path.dirname(__filename);
 const swaggerOptions = {
   info: {
     title: "Irish universities API",
-    version: "0.1"
+    version: "1.1"
   },
   securityDefinitions: {
     jwt: {
@@ -43,7 +43,7 @@ async function init() {
   const server = Hapi.server({
     port: process.env.PORT || 3000,
     host: "localhost",
-    routes: { cors: true },
+    /*routes: { cors: true },*/
   });
   await server.register(Vision);
   await server.register(Cookie);
