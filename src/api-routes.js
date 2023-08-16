@@ -9,6 +9,7 @@ export const apiRoutes = [
   { method: "DELETE", path: "/api/users", config: userApi.deleteAll },
   { method: "GET", path: "/api/users/{id}", config: userApi.findOne },
   { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate},
+  { method: "POST", path: "/api/users/{userId}/editUserDetails", config: userApi.editUserDetails },
 
   { method: "GET", path: "/api/counties", config: countyApi.find },
   { method: "GET", path: "/api/users/{userId}/counties", config: countyApi.findUserCounties },

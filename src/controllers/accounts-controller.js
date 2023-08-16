@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import { db } from "../models/db.js";
 import { userSpec,userCredentialsSpec, userEditDetails } from "../models/joi-schemas.js";
 
@@ -24,8 +25,15 @@ export const accountsController = {
         }
     },
     handler: async function (request, h) {
-      const user = request.payload;
-      await db.userStore.addUser(user);
+      const saltRounds = 10;
+      const hash = await bcrypt.hash(request.payload.password,saltRounds);
+      const newUser = {
+        firstName: request.payload.firstName,
+        lastName: request.payload.lastName,
+        email: request.payload.email,
+        password: hash
+      };
+      await db.userStore.addUser(newUser);
       return h.redirect("/");
     },
   },
@@ -57,7 +65,11 @@ export const accountsController = {
     handler: async function (request, h) {
         const { email, password } = request.payload;
         const user = await db.userStore.getUserByEmail(email);
-        if (!user || user.password !== password) {
+        let passwordMatch = false;
+        if (user) {
+          passwordMatch = await bcrypt.compare(password, user.password);
+        }
+        if (!user || passwordMatch !== true) {
           return h.redirect("/");
         }
         request.cookieAuth.set({ id: user._id });

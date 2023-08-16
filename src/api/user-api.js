@@ -1,4 +1,5 @@
 import Boom from "@hapi/boom";
+import bcrypt from "bcrypt";
 import { db } from "../models/db.js";
 import { validationError } from "./logger.js";
 import { idSpec,jwtAuth,userArraySpec, userCredentialsSpec, userSpec, userSpecPlus } from "../models/joi-schemas.js";
@@ -15,11 +16,12 @@ export const userApi = {
     handler: async function (request, h) {
       try {
         const user = await db.userStore.getUserByEmail(request.payload.email);
-        if (!user) {
-          return Boom.unauthorized("User not found");
+        let passwordMatch = false;
+        if (user) {
+          passwordMatch = await bcrypt.compare(request.payload.password, user.password);
         }
-        if (user.password !== request.payload.password) {
-          return Boom.unauthorized("Invalid password");
+        if (!user || passwordMatch !== true) {
+          return Boom.unauthorized("Invalid credentials");
         }
         const token = createToken(user);
         return h.response({ success: true, token: token }).code(201);
@@ -99,7 +101,15 @@ export const userApi = {
     notes: "Creates a user and returns the created user",
     handler: async function (request, h) {
       try {
-        const user = await db.userStore.addUser(request.payload);
+        const saltRounds = 10;
+        const hash = await bcrypt.hash(request.payload.password,saltRounds);
+        const newUser = {
+          firstName: request.payload.firstName,
+          lastName: request.payload.lastName,
+          email: request.payload.email,
+          password: hash
+        };
+        const user = await db.userStore.addUser(newUser);
         if (user) {
           return h.response(user).code(201);
         }
@@ -126,6 +136,24 @@ export const userApi = {
       } catch (err) {
         return Boom.serverUnavailable("Database Error");
       }
+    },
+  },
+
+  editUserDetails: {
+    auth: false,
+    tags: ["api"],
+    description: "Edit user details",
+    notes: "Edit user details",
+    // validate: {payload: userDetails, failAction: validationError},
+    handler: async function (request, h) {
+      try {
+        const updatedUser = request.payload;
+        await db.userStore.updateUser(request.params.userId,updatedUser);
+        return h.response().code(204);
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+      
     },
   },
 };
