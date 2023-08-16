@@ -5,25 +5,25 @@ export const seedData = {
       firstName: "Homer",
       lastName: "Simpson",
       email: "homer@simpson.com",
-      password: "secret"
+      password: "$2a$10$8ZUaRnfDvx5JFrKeA3LV5e44HJRxrvPZKz8gYKgrJQ1mLIHA5y03i"
     },
     marge: {
       firstName: "Marge",
       lastName: "Simpson",
       email: "marge@simpson.com",
-      password: "secret"
+      password: "$2a$10$8ZUaRnfDvx5JFrKeA3LV5e44HJRxrvPZKz8gYKgrJQ1mLIHA5y03i"
     },
     bart: {
       firstName: "Bart",
       lastName: "Simpson",
       email: "bart@simpson.com",
-      password: "secret"
+      password: "$2a$10$8ZUaRnfDvx5JFrKeA3LV5e44HJRxrvPZKz8gYKgrJQ1mLIHA5y03i"
     },
     vinod: {
       firstName: "Vinod",
       lastName: "Yadav",
       email: "vinod@yadav.com",
-      password: "secret"
+      password: "$2a$10$8ZUaRnfDvx5JFrKeA3LV5e44HJRxrvPZKz8gYKgrJQ1mLIHA5y03i"
     }
   },
   counties: {
@@ -38,6 +38,10 @@ export const seedData = {
     },
     wexford: {
       name: "Wexford",
+      userId: "->users.homer"
+    },
+    limerick: {
+      name: "Limerick",
       userId: "->users.homer"
     },
     waterford: {
@@ -84,7 +88,35 @@ export const seedData = {
       lat: 52.33566,
       lng: -6.47190,
       description: "sample description",
-      countyId: "->counties.wexford"
+      countyId: "->counties.waterford"
+    },
+    ucc:{
+      name: "University College Cork",
+      lat: 51.89587,
+      lng: -8.49173,
+      description: "sample description",
+      countyId: "->counties.cork"
+    },
+    mtu:{
+      name: "Munster Technological University",
+      lat: 51.88854,
+      lng: -8.53323,
+      description: "sample description",
+      countyId: "->counties.cork"
+    },
+    ug:{
+      name: "University of Galway",
+      lat: 53.27948,
+      lng: -9.06178,
+      description: "sample description",
+      countyId: "->counties.galway"
+    },
+    ul:{
+      name: "University of Limerick",
+      lat: 52.85628,
+      lng: -8.5742,
+      description: "sample description",
+      countyId: "->counties.limerick"
     }
 
   }
