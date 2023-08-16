@@ -84,9 +84,9 @@ export const seedData = {
       countyId: "->counties.dublin"
     },
     setu:{
-      name: "South East Technological University",
-      lat: 52.33566,
-      lng: -6.47190,
+      name: "South East Technological University(waterford)",
+      lat: 52.24902,
+      lng: -7.14217,
       description: "sample description",
       countyId: "->counties.waterford"
     },
