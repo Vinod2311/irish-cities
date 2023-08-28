@@ -158,7 +158,9 @@ export const countyApi = {
   },
 
   deleteImage: {
-    auth: false,
+    auth: {
+      strategy: "jwt"
+    },
     tags: ["api"],
     description: "Delete image",
     notes: "Delete image on database",
