@@ -76,9 +76,7 @@ export const userApi = {
     tags: ["api"],
     description: "Get a specific user by email",
     notes: "Returns details of one user by email",
-    auth: {
-      strategy: "jwt"
-    },
+    auth: false,
     handler: async function (request, h) {
       try {
         const user = await db.userStore.getUserByEmail(request.params.email);
